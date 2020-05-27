@@ -1,5 +1,4 @@
 import java.util.Date;
-import java.util.UUID;
 import java.io.Serializable;
 import java.text.DateFormat;
 
@@ -9,13 +8,13 @@ import java.text.DateFormat;
 public class Message implements Serializable		 //must implement Serializable in order to be sent over a Socket
 {
 
- UUID id;
- UUID envoyeur;
- UUID recever;
+ int id;
+ int envoyeur;
+ int recever;
  DateFormat time;
  String txt;
 
-public Message(UUID id,UUID envoyeur, UUID recever, DateFormat time, String txt) {
+public Message(int id,int envoyeur, int recever, DateFormat time, String txt) {
 	this.id=id;
 	this.envoyeur=envoyeur;
 	this.recever=recever;
@@ -24,23 +23,23 @@ public Message(UUID id,UUID envoyeur, UUID recever, DateFormat time, String txt)
 }
 
 
-public UUID getId() {
+public int getId() {
 	return id;
 }
 
-public UUID getEnvoyeur() {
+public int getEnvoyeur() {
 	return envoyeur;
 }
 
-public void setEnvoyeur(UUID envoyeur) {
+public void setEnvoyeur(int envoyeur) {
 	this.envoyeur = envoyeur;
 }
 
-public UUID getRecever() {
+public int getRecever() {
 	return recever;
 }
 
-public void setRecever(UUID recever) {
+public void setRecever(int recever) {
 	this.recever = recever;
 }
 

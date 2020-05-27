@@ -38,7 +38,6 @@ public class DBConnection {
 	public boolean verifUserLogin(String userPseudo, String userPassword) throws SQLException {
 		ResultSet rs = dbSelect("SELECT EXISTS(SELECT * FROM users WHERE userPseudo =\"" + userPseudo + "\" and userPassword = \"" + userPassword + "\") as ex;");
 		rs.next();
-		System.out.println("ex = " + rs.getString("ex"));
 		if ((rs.getInt("ex")) == 1) {
 			return true;
 	}
@@ -50,7 +49,6 @@ public class DBConnection {
 	public boolean verifUserExists(String userPseudo) throws SQLException {
 		ResultSet rs = dbSelect("SELECT EXISTS(SELECT * FROM users WHERE userPseudo =\"" + userPseudo + "\") as ex;");
 		rs.next();
-		System.out.println("ex = " + rs.getString("ex"));
 		if ((rs.getInt("ex")) == 1) {
 			return true;
 	}

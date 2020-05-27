@@ -1,11 +1,13 @@
 import java.io.*;
 import java.net.*;
-
-public class FirstServer extends AbstractServer
+import java.sql.SQLException;
+import java.sql.*;
+public class FirstServer
 {
 	private String ip = "localhost";
 	private ServerSocket ss;
-
+    
+	
 	public void connect(String ip) {
 		try {
 			//the server socket is defined only by a port (its IP is localhost)
@@ -34,4 +36,9 @@ public class FirstServer extends AbstractServer
 		}
 	}
 
+	
+	public static void main(String[] args) throws SQLException {
+		FirstServer fs = new FirstServer();
+		fs.connect("localhost");
+	}
 }

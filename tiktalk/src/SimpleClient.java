@@ -1,5 +1,6 @@
 import java.io.*; 
 import java.net.*;
+import java.util.Scanner;
 
 public class SimpleClient {
 
@@ -18,12 +19,40 @@ public class SimpleClient {
 			output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
 
-			String textToSend = new String("send me the student info!");
+            Scanner scan = new Scanner(System.in);
+            
+            System.out.println("Entrez votre pseudo ");
+			String textToSend = scan.nextLine();
 			System.out.println("text sent to the server: " + textToSend);
 			output.writeObject(textToSend);		//serialize and write the String to the stream
-
-			Message message = (Message) input.readObject();	//deserialize and read the Student object from the stream
-			System.out.println("Received message id: " + message.getId() + " and message text:" + message.getTxt() + " from server");
+			 System.out.println("Entrez votre mot de passe ");
+			String textToSend2 = scan.nextLine();
+			System.out.println("text sent to the server: " + textToSend2);
+			output.writeObject(textToSend2);		//serialize and write the String to the stream
+			
+			
+			
+			
+			String reponseConnection = (String) input.readObject();
+			System.out.println("Le server indique le message: "+ reponseConnection);
+			
+			while(!reponseConnection.equals("ConnectionAcceptee")) {
+				
+				System.out.println("Entrez votre pseudo ");
+				textToSend = scan.nextLine();
+				System.out.println("text sent to the server: " + textToSend);
+				output.writeObject(textToSend);		//serialize and write the String to the stream
+				
+				System.out.println("Entrez votre mot de passe ");
+				textToSend2 = scan.nextLine();
+				System.out.println("text sent to the server: " + textToSend2);
+				output.writeObject(textToSend2);		//serialize and write the String to the stream
+				
+				reponseConnection = (String) input.readObject();
+				System.out.println("Le server indique le message: "+ reponseConnection);
+			}
+			
+			
 	    } catch  (UnknownHostException uhe) {
 			uhe.printStackTrace();
 		}
