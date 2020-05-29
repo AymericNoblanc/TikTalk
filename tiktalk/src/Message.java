@@ -8,20 +8,22 @@ import java.text.DateFormat;
 public class Message implements Serializable		 //must implement Serializable in order to be sent over a Socket
 {
 
- int id;
- int envoyeur;
- int recever;
- DateFormat time;
- String txt;
+int id;
+int envoyeur;
+int recever;
+java.sql.Timestamp dateSQL;
+String txt;
 
-public Message(int id,int envoyeur, int recever, DateFormat time, String txt) {
+public Message(int id,int envoyeur, int recever,java.sql.Timestamp dateSQL, String txt) {
 	this.id=id;
 	this.envoyeur=envoyeur;
 	this.recever=recever;
-	this.time=time;
+	this.dateSQL=dateSQL;
 	this.txt=txt;
 }
-
+public void setId(int id) {
+	this.id = id;
+}
 
 public int getId() {
 	return id;
@@ -43,14 +45,16 @@ public void setRecever(int recever) {
 	this.recever = recever;
 }
 
-public DateFormat getTime() {
-	return time;
-}
 
-public void setTime(DateFormat time) {
-	this.time = time;
-}
 
+
+
+public java.sql.Timestamp getDateSQL() {
+	return dateSQL;
+}
+public void setDateSQL(java.sql.Timestamp dateSQL) {
+	this.dateSQL = dateSQL;
+}
 public String getTxt() {
 	return txt;
 }

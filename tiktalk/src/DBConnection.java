@@ -3,11 +3,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.LinkedList;
+import java.time.*;
+import java.util.*;
 public class DBConnection {
 
 	Connection conn;
-	
+
 	public DBConnection() {
 	try {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tiktalk?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow", "javaAccess", "java" );
@@ -65,6 +67,52 @@ public class DBConnection {
 	}
 	public void addUserToDB(String userPseudo, String userPassword, String userIP) throws SQLException {
 	dbUpdate("INSERT INTO users (userPseudo, userPassword, userIp) VALUES (\"" + userPseudo + "\", \"" + userPassword + "\", \"" + userIP + "\")");
-		
 	}
+	
+	
+	public LinkedList<Message> fetchMessage(int user1ID, int user2ID) throws SQLException{
+		
+		LinkedList<Message> mList = new LinkedList<Message>();
+		
+        java.util.Date date = new java.util.Date();
+        java.sql.Timestamp sqlTimeStamp = new java.sql.Timestamp(date.getTime());
+        
+        Message mess = new Message(1,1,1,sqlTimeStamp,"a");
+		ResultSet rs = dbSelect("SELECT * FROM messages WHERE (envoyeurID =\"" + user1ID + "\" and receveurID =\"" + user2ID + "\") or (envoyeurID =\"" + user2ID + "\" and receveurID =\"" + user1ID + "\");");
+	
+		while(rs.next()) {
+			mess.id= rs.getInt("messageID");
+			mess.envoyeur= rs.getInt("envoyeurID");
+			mess.recever= rs.getInt("receveurID");
+			mess.dateSQL= rs.getTimestamp("date");
+			mess.txt= rs.getString("text");
+			mList.addFirst(mess);
+			System.out.println("message ajouté dans la liste");
+		}
+		
+		return mList;
+	}
+	
+	public void addMessage(int envoyeurID, int receveurID, java.sql.Timestamp sqlTimeStamp,String text) throws SQLException{
+			dbUpdate("INSERT INTO messages (envoyeurID,receveurID,date,text) VALUES (\"" + envoyeurID+ "\", \"" + receveurID + "\",\"" + sqlTimeStamp +  "\", \"" + text + "\");");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
