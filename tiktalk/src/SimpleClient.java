@@ -1,13 +1,13 @@
 import java.io.*; 
 import java.net.*;
 import java.util.Scanner;
-
+import java.util.LinkedList;
 public class SimpleClient {
 
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private Socket socket;
-
+	private LinkedList<Contact> cList;
 	public void connect(String ip)
 	{
 		int port = 6666;
@@ -107,6 +107,14 @@ public class SimpleClient {
     			monUser = (User) input.readObject();
     			 System.out.println("Received user id: " + monUser.getId() + " and user pseudo:" + monUser.getPseudo() + " from server");
             }
+            
+            System.out.println("Voici la liste de vos contacts");
+            cList = (LinkedList<Contact>) input.readObject();
+            for(int num=0; num<cList.size(); num++)
+            {
+          	  System.out.println(cList.get(num).getContactPseudo() );//.getContactPseudo());
+            }
+            
             System.out.println("Vous allez envoyer un message indiquez l'id de la personne a contacter:");
            
             int idContact = scan.nextInt();
@@ -116,6 +124,15 @@ public class SimpleClient {
             String textToSend = scan.nextLine();
             output.writeObject(textToSend);
 			
+            
+            
+            
+            
+            
+            
+            
+            
+            
 			
 	    } catch  (UnknownHostException uhe) {
 			uhe.printStackTrace();

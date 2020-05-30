@@ -65,6 +65,16 @@ public class DBConnection {
 		User user = new User(rs.getInt("userID"),userPseudo,rs.getString("userPassword"), rs.getString("userIP"));
 		return user;
 	}
+	
+	public String fetchPseudo(int Id) throws SQLException {
+		ResultSet rs = dbSelect("SELECT * FROM users WHERE userID =\"" + Id + "\";");
+		rs.next();
+		String pseudo= rs.getString("userPseudo");
+		return pseudo;
+	}
+	
+	
+	
 	public void addUserToDB(String userPseudo, String userPassword, String userIP) throws SQLException {
 	dbUpdate("INSERT INTO users (userPseudo, userPassword, userIp) VALUES (\"" + userPseudo + "\", \"" + userPassword + "\", \"" + userIP + "\")");
 	}
@@ -95,6 +105,28 @@ public class DBConnection {
 	
 	public void addMessage(int envoyeurID, int receveurID, java.sql.Timestamp sqlTimeStamp,String text) throws SQLException{
 			dbUpdate("INSERT INTO messages (envoyeurID,receveurID,date,text) VALUES (\"" + envoyeurID+ "\", \"" + receveurID + "\",\"" + sqlTimeStamp +  "\", \"" + text + "\");");
+	}
+	
+	
+	public LinkedList<Contact> getContactList(int userID) throws SQLException{
+	LinkedList<Contact> cList = new LinkedList<Contact>();
+	
+	ResultSet rs = dbSelect("SELECT receveurID FROM messages where envoyeurID = \""+ userID +"\" UNION SELECT envoyeurID FROM messages where receveurID=\"" + userID + "\";");
+	int contactID;
+	String contactPseudo;
+	while(rs.next()) {
+		 contactID = rs.getInt("receveurID");
+		 contactPseudo = fetchPseudo(rs.getInt("receveurID"));
+		
+		Contact contact = new Contact(contactID,contactPseudo);
+		cList.add(contact);
+		System.out.println("contacts trouvés:" + contact.getContactID() + contact.getContactPseudo());
+	}
+    for(int num=0; num<cList.size(); num++)
+    {
+  	  System.out.println(num + ":" +cList.get(num).getContactPseudo() );//.getContactPseudo());
+    }
+	return cList;
 	}
 	
 	

@@ -41,9 +41,7 @@ public class ServerThread extends Thread {
 			        java.util.Date date = new java.util.Date();
 			        java.sql.Timestamp sqlTimeStamp = new java.sql.Timestamp(date.getTime());
 
-					mcs.dbc.addMessage(1,2,sqlTimeStamp,"T'as fait les deuvoirs?");
-					
-					
+				
 					LinkedList<Message> mList = mcs.dbc.fetchMessage(1, 7);
 					Message mess = mList.peek();
 					System.out.println("Dans la liste: " + mess.getId() + mess.getRecever() + mess.getEnvoyeur() + mess.getDateSQL() + mess.getTxt());
@@ -102,9 +100,14 @@ public class ServerThread extends Thread {
 					output.writeObject("ConnectionAcceptee");
 					output.writeObject(clientUser);
 					}
+					
+					output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
 					int idContact = (int)input.readObject();
 					String textToSend = (String)input.readObject();
 					mcs.dbc.addMessage(clientUser.getId(), idContact, sqlTimeStamp, textToSend);
+					output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
+						
+					
 					//Message message = new Message(1,1,1,dates.nowDate(), "john.doe");
 					//output.writeObject(message);		//serialize and write the Student object to the stream
 
