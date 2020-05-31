@@ -87,17 +87,23 @@ public class DBConnection {
         java.util.Date date = new java.util.Date();
         java.sql.Timestamp sqlTimeStamp = new java.sql.Timestamp(date.getTime());
         
-        Message mess = new Message(1,1,1,sqlTimeStamp,"a");
+        
 		ResultSet rs = dbSelect("SELECT * FROM messages WHERE (envoyeurID =\"" + user1ID + "\" and receveurID =\"" + user2ID + "\") or (envoyeurID =\"" + user2ID + "\" and receveurID =\"" + user1ID + "\");");
-	
+		int messageID;
+		int envoyeurID;
+		int receveurID;
+		java.sql.Timestamp dateSQL;
+		String txt;
+		
 		while(rs.next()) {
-			mess.id= rs.getInt("messageID");
-			mess.envoyeur= rs.getInt("envoyeurID");
-			mess.recever= rs.getInt("receveurID");
-			mess.dateSQL= rs.getTimestamp("date");
-			mess.txt= rs.getString("text");
+			messageID= rs.getInt("messageID");
+			envoyeurID= rs.getInt("envoyeurID");
+			receveurID= rs.getInt("receveurID");
+			dateSQL= rs.getTimestamp("date");
+			txt= rs.getString("text");
+			Message mess = new Message(messageID,envoyeurID,receveurID,dateSQL,txt);
 			mList.addFirst(mess);
-			System.out.println("message ajouté dans la liste");
+			//System.out.println("message ajouté dans la liste");
 		}
 		
 		return mList;

@@ -41,10 +41,14 @@ public class ServerThread extends Thread {
 			        java.util.Date date = new java.util.Date();
 			        java.sql.Timestamp sqlTimeStamp = new java.sql.Timestamp(date.getTime());
 
-				
+				/*
 					LinkedList<Message> mList = mcs.dbc.fetchMessage(1, 7);
-					Message mess = mList.peek();
-					System.out.println("Dans la liste: " + mess.getId() + mess.getRecever() + mess.getEnvoyeur() + mess.getDateSQL() + mess.getTxt());
+					 for(int num=0; num<mList.size(); num++)
+			            {
+			          	  System.out.println("message "+num + ": " +mList.get(num).getTxt() );//.getContactPseudo());
+			            }*/
+					//Message mess = mList.peek();
+					//System.out.println("Dans la liste: " + mess.getId() + mess.getRecever() + mess.getEnvoyeur() + mess.getDateSQL() + mess.getTxt());
 					
 					int user1Choice= (int)input.readObject();
 					if(user1Choice==1) {
@@ -103,6 +107,7 @@ public class ServerThread extends Thread {
 					
 					output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
 					int idContact = (int)input.readObject();
+					output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
 					String textToSend = (String)input.readObject();
 					mcs.dbc.addMessage(clientUser.getId(), idContact, sqlTimeStamp, textToSend);
 					output.writeObject(mcs.dbc.getContactList(clientUser.getId()));

@@ -20,7 +20,7 @@ public class SimpleClient {
             input = new ObjectInputStream(socket.getInputStream());
             Scanner scan = new Scanner(System.in);
             int choix1User;
-            
+            LinkedList<Message> mList = new LinkedList<Message>();
             User monUser;
             System.out.println("Tapez 1 pour créer un compte ou tapez 2 pour vous connecter");
             choix1User = scan.nextInt();
@@ -116,9 +116,14 @@ public class SimpleClient {
             }
             
             System.out.println("Vous allez envoyer un message indiquez l'id de la personne a contacter:");
-           
             int idContact = scan.nextInt();
             output.writeObject(idContact);
+            System.out.println("Voici l'historique de vos messages avec cette personne:");
+            mList = (LinkedList<Message>) input.readObject();
+            for(int num=0; num<mList.size(); num++)
+            {
+          	  System.out.println(mList.get(num).getDateSQL() +" "+ mList.get(num).getEnvoyeur() +"   "+ mList.get(num).getTxt() );//.getContactPseudo());
+            }
             System.out.println("Entrez le texte du message à envoyer:");
             scan.nextLine();
             String textToSend = scan.nextLine();
