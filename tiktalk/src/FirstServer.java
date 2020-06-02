@@ -6,21 +6,24 @@ public class FirstServer
 {
 	private String ip = "localhost";
 	private ServerSocket ss;
-    
+	
 	
 	public void connect(String ip) {
 		try {
 			//the server socket is defined only by a port (its IP is localhost)
 
-			ss = new ServerSocket (6666);
-
+			ss = new ServerSocket (1000);
+			
+			
 			System.out.println("Server waiting for connection...");
 			while (true) {
 
 				Socket socket = ss.accept();//establishes connection
+				
 				System.out.println("Connected as " + ip);
 				// create a new thread to handle client socket
-				new ServerThread(socket).start();
+				new InitialServer(socket).start();
+				
 			}
 			
 		} catch (IOException ioe) {
@@ -34,6 +37,9 @@ public class FirstServer
 				}
 			}
 		}
+	}
+	public void newServerThread(int port) throws IOException {
+
 	}
 
 	

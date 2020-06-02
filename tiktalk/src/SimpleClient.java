@@ -7,10 +7,12 @@ public class SimpleClient {
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private Socket socket;
+	private Socket socketAttribue;
 	private LinkedList<Contact> cList;
 	public void connect(String ip)
 	{
-		int port = 6666;
+		int port = 1000;
+		int portAttribue;
         try  {
 			//create the socket; it is defined by an remote IP address (the address of the server) and a port number
 			socket = new Socket(ip, port);
@@ -22,6 +24,29 @@ public class SimpleClient {
             int choix1User;
             LinkedList<Message> mList = new LinkedList<Message>();
             User monUser;
+           
+            
+            
+			// RECEPTION DU PORT ET CHANGEMENT DE CANAL
+            
+            output.writeObject("packet de demande de connection"); //envoi du premier message au server
+            
+            portAttribue = (int) input.readObject();
+			System.out.println("Le port de connection est : "+ portAttribue);
+			
+			input.close();
+			output.close();
+			socket.close();
+            //connection au nouveau socket
+			socketAttribue = new Socket(ip, portAttribue);
+			output = new ObjectOutputStream(socketAttribue.getOutputStream());
+            input = new ObjectInputStream(socketAttribue.getInputStream());
+			
+			
+			
+			
+			
+            
             System.out.println("Tapez 1 pour créer un compte ou tapez 2 pour vous connecter");
             choix1User = scan.nextInt();
             while(choix1User != 1 && choix1User != 2) {
@@ -46,6 +71,11 @@ public class SimpleClient {
     			output.writeObject(textToSend2);		//serialize and write the String to the stream
     			
 
+    			
+    			
+    			
+    			
+    			
     			String reponseCreation = (String) input.readObject();
     			System.out.println("Le server indique le message: "+ reponseCreation);
             	
