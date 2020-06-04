@@ -126,11 +126,11 @@ public class DBConnection {
 		
 		Contact contact = new Contact(contactID,contactPseudo);
 		cList.add(contact);
-		System.out.println("contacts trouvés:" + contact.getContactID() + contact.getContactPseudo());
+		//System.out.println("contacts trouvés:" + contact.getContactID() + contact.getContactPseudo());
 	}
     for(int num=0; num<cList.size(); num++)
     {
-  	  System.out.println(num + ":" +cList.get(num).getContactPseudo() );//.getContactPseudo());
+  	//  System.out.println(num + ":" +cList.get(num).getContactPseudo() );//.getContactPseudo());
     }
 	return cList;
 	}

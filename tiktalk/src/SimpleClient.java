@@ -154,6 +154,7 @@ public class SimpleClient {
             {
           	  System.out.println(mList.get(num).getDateSQL() +" "+ mList.get(num).getEnvoyeur() +"   "+ mList.get(num).getTxt() );//.getContactPseudo());
             }
+            
             System.out.println("Entrez le texte du message à envoyer:");
             scan.nextLine();
             String textToSend = scan.nextLine();

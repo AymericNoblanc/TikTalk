@@ -104,14 +104,16 @@ public class ServerThread extends Thread {
 					output.writeObject("ConnectionAcceptee");
 					output.writeObject(clientUser);
 					}
-					
+
 					output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
 					int idContact = (int)input.readObject();
 					output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
 					String textToSend = (String)input.readObject();
+					
 					mcs.dbc.addMessage(clientUser.getId(), idContact, sqlTimeStamp, textToSend);
-					output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
-						
+
+					//output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
+
 					
 					//Message message = new Message(1,1,1,dates.nowDate(), "john.doe");
 					//output.writeObject(message);		//serialize and write the Student object to the stream
@@ -131,7 +133,7 @@ public class ServerThread extends Thread {
 						ioe.printStackTrace();
 					}
 				}
-			
+		
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
