@@ -28,24 +28,30 @@ public class LoginGUI extends JFrame {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JButton Button_Inscription;
-
-	/* Lance l'application */
+	public String champPseudo;
+	public String champMDP;
+	boolean loginButton = false;
+	boolean creerButton = false;
+	
+	/* Lance l'application 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginGUI frame = new LoginGUI();
-					frame.setVisible(true);
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/* Création de la fenêtre */
 	
 	public LoginGUI() {
+	
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(320, 180, 630, 350);
 		contentPane = new JPanel();
@@ -69,6 +75,10 @@ public class LoginGUI extends JFrame {
 		btnNewButton.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				champPseudo = textField.getText();
+				champMDP = String.valueOf(passwordField.getPassword());
+				System.out.println("LE GUI DIT  LOGIN: " +champPseudo + " Password : "+champMDP);
+				loginButton = true;
 			}
 		});
 		btnNewButton.setBackground(UIManager.getColor("desktop"));
@@ -135,7 +145,6 @@ public class LoginGUI extends JFrame {
 		JLabel lblId = new JLabel("id");
 		lblId.setBounds(102, 103, 25, 38);
 		contentPane.add(lblId);
-		
 		
 		setUndecorated(true); // permet de suprimer le bouton fermer en haut 
 	}

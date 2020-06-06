@@ -35,7 +35,7 @@ public class InscriptionGUI extends JFrame {
 	private JButton btnValider;
 	private JButton btnCrerUnCompte;
 
-	/*Lance l'application*/
+	/*Lance l'application
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -47,7 +47,7 @@ public class InscriptionGUI extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/* Création de la fenêtre */
 	

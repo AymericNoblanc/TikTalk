@@ -8,7 +8,7 @@ public class MainControllerS {
 	DBConnection dbc;
 	
 	public  MainControllerS() throws SQLException  {
-		System.out.println("Hello World !");
+	//	System.out.println("Hello World !");
 		dbc = new DBConnection();
 		//dbc.getConnection();
 		

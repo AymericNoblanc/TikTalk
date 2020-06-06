@@ -9,6 +9,8 @@ public class SimpleClient {
 	private Socket socket;
 	private Socket socketAttribue;
 	private LinkedList<Contact> cList;
+	private LoginGUI loginGUI;
+	private InscriptionGUI inscriGUI;
 	public void connect(String ip)
 	{
 		int port = 1000;
@@ -42,24 +44,30 @@ public class SimpleClient {
 			output = new ObjectOutputStream(socketAttribue.getOutputStream());
             input = new ObjectInputStream(socketAttribue.getInputStream());
 			
-			
-			
-			
-			
+            loginGUI = new LoginGUI();
+            loginGUI.setVisible(true);
             
-            System.out.println("Tapez 1 pour créer un compte ou tapez 2 pour vous connecter");
-            choix1User = scan.nextInt();
-            while(choix1User != 1 && choix1User != 2) {
-                System.out.println("Tapez 1 pour créer un compte ou tapez 2 pour vous connecter");
-                choix1User = scan.nextInt();
-            }
+            //System.out.println("Tapez 1 pour créer un compte ou tapez 2 pour vous connecter");
+            //choix1User = scan.nextInt();
+            //while(choix1User != 1 && choix1User != 2) {
+            //    System.out.println("Tapez 1 pour créer un compte ou tapez 2 pour vous connecter");
+            //    choix1User = scan.nextInt();
+            //}
         	//Envoi au serveur l'info qu'on veut se connecter ou creer un compte
-    		output.writeObject(choix1User);
+            while(loginGUI.loginButton == false && loginGUI.creerButton == false) {
+            	 System.out.println("attente ");
+            }
+            System.out.println("kebab ");
     		
-            if(choix1User == 1) {
-
+    		
+            if(loginGUI.creerButton == true) {
+            	loginGUI.dispose();
+            	inscriGUI = new InscriptionGUI();
+            	inscriGUI.setVisible(true);
+                
+            	output.writeObject(1);
          	   
-                System.out.println("Entrez votre pseudo ");
+            	   System.out.println("Entrez votre pseudo ");
     			String textToSend = scan.nextLine();
     			textToSend = scan.nextLine();
     			System.out.println("text sent to the server: " + textToSend);
@@ -99,19 +107,20 @@ public class SimpleClient {
             
           
             	
-            }else {
-    
+            }else if (loginGUI.loginButton == true) {
+            	output.writeObject(2);
     	
             	   
-                System.out.println("Entrez votre pseudo ");
-    			String textToSend = scan.nextLine();
-    			textToSend = scan.nextLine();
-    			System.out.println("text sent to the server: " + textToSend);
-    			output.writeObject(textToSend);		//serialize and write the String to the stream
-    			 System.out.println("Entrez votre mot de passe ");
-    			String textToSend2 = scan.nextLine();
-    			System.out.println("text sent to the server: " + textToSend2);
-    			output.writeObject(textToSend2);		//serialize and write the String to the stream
+                //System.out.println("Entrez votre pseudo ");
+    			String textToSend = loginGUI.champPseudo;
+    			System.out.println("text sent to the server: " + loginGUI.champPseudo);
+    			output.writeObject(loginGUI.champPseudo);		//serialize and write the String to the stream
+    			
+    			
+    			//System.out.println("Entrez votre mot de passe ");
+    			String textToSend2 = loginGUI.champMDP;
+    			System.out.println("text sent to the server: " + loginGUI.champMDP);
+    			output.writeObject(loginGUI.champMDP);		//serialize and write the String to the stream
     			
     			
     			
@@ -121,19 +130,23 @@ public class SimpleClient {
     			
     			while(!reponseConnection.equals("ConnectionAcceptee")) {
     				
-    				System.out.println("Entrez votre pseudo ");
-    				textToSend = scan.nextLine();
-    				System.out.println("text sent to the server: " + textToSend);
+    				//System.out.println("Entrez votre pseudo ");
+    				textToSend = loginGUI.champPseudo;
+    				//System.out.println("text sent to the server: " + textToSend);
     				output.writeObject(textToSend);		//serialize and write the String to the stream
     				
-    				System.out.println("Entrez votre mot de passe ");
-    				textToSend2 = scan.nextLine();
-    				System.out.println("text sent to the server: " + textToSend2);
+    				//System.out.println("Entrez votre mot de passe ");
+    				textToSend2 = loginGUI.champMDP;
+    				//System.out.println("text sent to the server: " + textToSend2);
     				output.writeObject(textToSend2);		//serialize and write the String to the stream
     				
     				reponseConnection = (String) input.readObject();
-    				System.out.println("Le server indique le message: "+ reponseConnection);
+    				//System.out.println("Le server indique le message: "+ reponseConnection);
     			}
+    			System.out.println("Connection reussie a l'utilisateur");
+    			loginGUI.dispose();
+    			
+    			
     			monUser = (User) input.readObject();
     			 System.out.println("Received user id: " + monUser.getId() + " and user pseudo:" + monUser.getPseudo() + " from server");
             }
