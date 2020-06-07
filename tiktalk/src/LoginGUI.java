@@ -77,7 +77,6 @@ public class LoginGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				champPseudo = textField.getText();
 				champMDP = String.valueOf(passwordField.getPassword());
-				System.out.println("LE GUI DIT  LOGIN: " +champPseudo + " Password : "+champMDP);
 				loginButton = true;
 			}
 		});
@@ -88,27 +87,9 @@ public class LoginGUI extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		Button_Inscription = new JButton("Créer un compte");
-		Button_Inscription.addMouseListener(new MouseAdapter() {
-	//la où jai modif
-			
-			
-			
-			
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				InscriptionGUI isp = new InscriptionGUI();
-				isp.setVisible(true);
-				isp.pack();
-				isp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				 
-				
-			
-			
-				
-				
-				
+		Button_Inscription.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				creerButton = true;
 			}
 		});
 		Button_Inscription.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));

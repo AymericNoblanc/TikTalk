@@ -22,7 +22,7 @@ public class ChatRoomGUI extends JFrame {
 	private JTextField msg_text;
 
 
-	/*Lance l'application*/
+	/*Lance l'application
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -34,7 +34,7 @@ public class ChatRoomGUI extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/* Création de la fenêtre */
 	public ChatRoomGUI() {

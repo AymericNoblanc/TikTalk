@@ -20,6 +20,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -34,6 +37,9 @@ public class InscriptionGUI extends JFrame {
 	private JLabel lblNewLabel_4;
 	private JButton btnValider;
 	private JButton btnCrerUnCompte;
+	public String champPseudo;
+	public String champMDP;
+	boolean validerButton = false;
 
 	/*Lance l'application
 	public static void main(String[] args) {
@@ -106,6 +112,14 @@ public class InscriptionGUI extends JFrame {
 		btnCrerUnCompte.setBackground(Color.RED);
 		btnCrerUnCompte.setBounds(322, 277, 103, 29);
 		contentPane.add(btnCrerUnCompte);
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				champPseudo = textField.getText();
+				champMDP = textField_1.getText();
+	
+				validerButton = true;
+			}
+		});
 		setUndecorated(true); // permet de supprimer le bouton fermer en haut 
 	}
 
