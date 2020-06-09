@@ -20,7 +20,7 @@ public class ChatRoomGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField msg_text;
-
+	public JLabel lblNewLabel;
 
 	/*Lance l'application
 	public static void main(String[] args) {
@@ -60,9 +60,9 @@ public class ChatRoomGUI extends JFrame {
 		msg_send.setBounds(487, 519, 107, 36);
 		contentPane.add(msg_send);
 		
-		JLabel lblNewLabel = new JLabel("Chat Room");
+		lblNewLabel = new JLabel("Chat Room");
 		lblNewLabel.setFont(new Font("Monaco", Font.PLAIN, 25));
-		lblNewLabel.setBounds(36, 6, 153, 42);
+		lblNewLabel.setBounds(36, 6, 400, 42);
 		contentPane.add(lblNewLabel);
 		
 		TextArea textArea = new TextArea();

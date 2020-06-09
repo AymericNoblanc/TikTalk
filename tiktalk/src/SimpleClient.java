@@ -159,10 +159,12 @@ public class SimpleClient {
     			loginGUI.dispose();
     			
     			
-    			monUser = (User) input.readObject();
-    			 System.out.println("Received user id: " + monUser.getId() + " and user pseudo:" + monUser.getPseudo() + " from server");
+    		
             }
+        	monUser = (User) input.readObject();
+			 System.out.println("Received user id: " + monUser.getId() + " and user pseudo:" + monUser.getPseudo() + " from server");
             chatGUI = new ChatRoomGUI();
+            chatGUI.lblNewLabel.setText("Chatroom de " + monUser.getPseudo());
             chatGUI.setVisible(true);
             
             System.out.println("Voici la liste de vos contacts");
