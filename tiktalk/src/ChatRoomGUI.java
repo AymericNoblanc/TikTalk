@@ -2,26 +2,31 @@
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.TextArea;
+import java.util.LinkedList;
 
 public class ChatRoomGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField msg_text;
 	public JLabel lblNewLabel;
-
+	public LinkedList<Contact> cList;
+	public JList<Contact> cJList;
+	public DefaultListModel<Contact> model;
+	
 	/*Lance l'application
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -38,6 +43,7 @@ public class ChatRoomGUI extends JFrame {
 
 	/* Création de la fenêtre */
 	public ChatRoomGUI() {
+		//this.cList = cList;
 		setBackground(new Color(0, 0, 139));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 100, 600, 600);
@@ -70,9 +76,30 @@ public class ChatRoomGUI extends JFrame {
 		textArea.setBounds(232, 71, 358, 438);
 		contentPane.add(textArea);
 		
+		cJList = new JList<>();
+		model= new DefaultListModel<>();
+		cJList.setModel(model);
+       // for(int num=0; num<cList.size(); num++)
+        //{
+      	  //model.addElement(cList.get(num));//.getContactPseudo());
+       // }
+        
+        //for(int num=0; num<cList.size(); num++)
+        //{
+      	//  System.out.println(cList.get(num).getContactPseudo() );//.getContactPseudo());
+        //}
+		
+		JScrollPane sp = new JScrollPane(cJList);
+		sp.setBackground(new Color(255, 250, 240));
+		sp.setBounds(6, 71, 221, 438);
+		contentPane.add(sp);
+
+		/*
 		TextArea textArea_1 = new TextArea();
 		textArea_1.setBackground(new Color(255, 250, 240));
 		textArea_1.setBounds(6, 71, 221, 438);
 		contentPane.add(textArea_1);
+	*/
 	}
+
 }

@@ -28,5 +28,8 @@ public String getContactPseudo() {
 public void setContactPseudo(String contactPseudo) {
 	this.contactPseudo = contactPseudo;
 }
-
+@Override
+public String toString() {
+	return contactPseudo;
+}
 }

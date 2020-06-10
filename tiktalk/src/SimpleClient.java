@@ -165,6 +165,7 @@ public class SimpleClient {
 			 System.out.println("Received user id: " + monUser.getId() + " and user pseudo:" + monUser.getPseudo() + " from server");
             chatGUI = new ChatRoomGUI();
             chatGUI.lblNewLabel.setText("Chatroom de " + monUser.getPseudo());
+            chatGUI.cList = cList;
             chatGUI.setVisible(true);
             
             System.out.println("Voici la liste de vos contacts");
@@ -172,6 +173,7 @@ public class SimpleClient {
             for(int num=0; num<cList.size(); num++)
             {
           	  System.out.println(cList.get(num).getContactPseudo() );//.getContactPseudo());
+          	  chatGUI.model.addElement(cList.get(num));
             }
             
             System.out.println("Vous allez envoyer un message indiquez l'id de la personne a contacter:");
