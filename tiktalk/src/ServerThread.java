@@ -16,8 +16,8 @@ public class ServerThread extends Thread {
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
 	private MainControllerS mcs;
-	
-	
+	private java.sql.Timestamp sqlTimeStamp;
+	private String textToSend;
 
     Date now = new Date();
     Dates dates = new Dates();
@@ -40,7 +40,7 @@ public class ServerThread extends Thread {
 					
 					// test
 			        java.util.Date date = new java.util.Date();
-			        java.sql.Timestamp sqlTimeStamp = new java.sql.Timestamp(date.getTime());
+			        
 
 				/*
 					LinkedList<Message> mList = mcs.dbc.fetchMessage(1, 7);
@@ -107,14 +107,36 @@ public class ServerThread extends Thread {
 					}
 
 					output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
-					int idContact = (int)input.readObject();
-					output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
+					int idContact;
+					int changed;
+					idContact = 0;
+					
+					
+					while(true) {
+						changed = (int)input.readObject();
+						if(changed == 1) {
+							idContact = (int)input.readObject();
+							output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
+						}
+						if(changed == 2) {
+							sqlTimeStamp = new java.sql.Timestamp(date.getTime());
+							
+							textToSend = (String)input.readObject();
+							output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
+							
+							mcs.dbc.addMessage(clientUser.getId(), idContact, sqlTimeStamp, textToSend);
+						}
+			
+					}
+					
+					/*
+					//////////////////////////////////////////
 					String textToSend = (String)input.readObject();
 					
 					mcs.dbc.addMessage(clientUser.getId(), idContact, sqlTimeStamp, textToSend);
 
 					//output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
-
+					*/
 					
 					//Message message = new Message(1,1,1,dates.nowDate(), "john.doe");
 					//output.writeObject(message);		//serialize and write the Student object to the stream

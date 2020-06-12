@@ -1,7 +1,9 @@
+import java.awt.Color;
 import java.io.*; 
 import java.net.*;
 import java.util.Scanner;
 import java.util.LinkedList;
+import java.time.*;
 public class SimpleClient {
 
 	private ObjectOutputStream output;
@@ -12,6 +14,13 @@ public class SimpleClient {
 	private LoginGUI loginGUI;
 	private InscriptionGUI inscriGUI;
 	private ChatRoomGUI chatGUI;
+	private LinkedList<Message> MList;
+	private int idSelected;
+	private LocalDateTime now;
+	private Period period;
+	private long seconds;
+	
+	
 	public void connect(String ip)
 	{
 		int port = 1000;
@@ -175,22 +184,101 @@ public class SimpleClient {
           	  System.out.println(cList.get(num).getContactPseudo() );//.getContactPseudo());
           	  chatGUI.model.addElement(cList.get(num));
             }
+            /////////////////////////////////////////////////////////////////////////////////////////////////////
+      
             
+            //chatGUI.indexSelected = 
+            idSelected = -1;
+            now = LocalDateTime.now();
+            seconds = now.atZone(ZoneId.systemDefault()).toEpochSecond();
+            while(true) {
+            	
+            	if(chatGUI.cJList.getSelectedIndex() != -1) {
+            		//chatGUI.contentPane.add(chatGUI.msg_text);
+            		//chatGUI.contentPane.add(chatGUI.msg_send);
+            		if(idSelected != chatGUI.cJList.getSelectedValue().getContactID()) {
+            			output.writeObject(1);
+            			chatGUI.modelMessage.clear();
+            			idSelected = chatGUI.cJList.getSelectedValue().getContactID();
+            			System.out.println("id selected:" + idSelected);
+            			output.writeObject(idSelected);
+            			mList = (LinkedList<Message>)input.readObject();
+
+            			
+            	         for(int num=0; num<mList.size(); num++)
+            	            {
+            	          //	  System.out.println(mList.get(num).getContactPseudo() );//.getContactPseudo());
+            	          	  chatGUI.modelMessage.addElement(mList.get(num));
+            	    	      if(mList.get(num).getEnvoyeur() == monUser.getId())   
+            	          	  chatGUI.mJList.setSelectedIndex(num);
+                    	         
+            	            }
+        
+            			
+            			
+            		}else if(chatGUI.boutonEnvoyer == true) {
+            			output.writeObject(2);
+            			output.writeObject(chatGUI.msg_text.getText());
+            			chatGUI.msg_text.setText("");
+            			chatGUI.boutonEnvoyer = false;
+            		}else {
+            			//System.out.println("pas de changement, id =" + idSelected);
+            			//period = Period.between(now, LocalDateTime.now());
+            			
+            			
+            			
+            			if(LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond() - seconds > 1) {
+            			System.out.println("time = " + seconds);
+            			
+            			
+            				output.writeObject(1);
+            				chatGUI.modelMessage.clear();
+            				idSelected = chatGUI.cJList.getSelectedValue().getContactID();
+            				System.out.println("id selected:" + idSelected);
+            				output.writeObject(idSelected);
+            				mList = (LinkedList<Message>)input.readObject();
+
+            			
+            				for(int num=0; num<mList.size(); num++){
+            						//		  System.out.println(mList.get(num).getContactPseudo() );//.getContactPseudo());
+            	          	  	chatGUI.modelMessage.addElement(mList.get(num));
+            	          	  	if(mList.get(num).getEnvoyeur() == monUser.getId())   
+            	          	  		chatGUI.mJList.setSelectedIndex(num);
+                    	         
+            	            }
+            				now = LocalDateTime.now();
+            				seconds = now.atZone(ZoneId.systemDefault()).toEpochSecond();
+            			}
+            		}
+            		
+                    for(int num=0; num<mList.size(); num++)
+                    {
+                  	  System.out.println(mList.get(num).getDateSQL() +" "+ mList.get(num).getEnvoyeur() +"   "+ mList.get(num).getTxt() );//.getContactPseudo());
+                    }
+            	
+            	}else {
+            		System.out.println("attente3" );
+            		
+            	
+            	}
+            	
+            	
+            }
+            
+            
+            /*
             System.out.println("Vous allez envoyer un message indiquez l'id de la personne a contacter:");
             int idContact = scan.nextInt();
             output.writeObject(idContact);
             System.out.println("Voici l'historique de vos messages avec cette personne:");
-            mList = (LinkedList<Message>) input.readObject();
-            for(int num=0; num<mList.size(); num++)
-            {
-          	  System.out.println(mList.get(num).getDateSQL() +" "+ mList.get(num).getEnvoyeur() +"   "+ mList.get(num).getTxt() );//.getContactPseudo());
-            }
+            
+
             
             System.out.println("Entrez le texte du message à envoyer:");
             scan.nextLine();
             String textToSend = scan.nextLine();
             output.writeObject(textToSend);
-			
+			*/
             
             
             

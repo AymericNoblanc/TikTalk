@@ -63,6 +63,10 @@ public void setTxt(String txt) {
 	this.txt = txt;
 }
 
+@Override
+public String toString() {
+	return String.valueOf(dateSQL) +"- "+ String.valueOf(envoyeur) +" :  " + txt;
+}
 
 
 }

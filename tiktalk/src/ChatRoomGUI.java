@@ -20,13 +20,17 @@ import java.util.LinkedList;
 
 public class ChatRoomGUI extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField msg_text;
+	public JPanel contentPane;
+	public JTextField msg_text;
 	public JLabel lblNewLabel;
 	public LinkedList<Contact> cList;
 	public JList<Contact> cJList;
+	public JList<Message> mJList;
 	public DefaultListModel<Contact> model;
-	
+	public DefaultListModel<Message> modelMessage;
+	public int indexSelected;
+	public JButton msg_send;
+	public boolean boutonEnvoyer;
 	/*Lance l'application
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -52,33 +56,39 @@ public class ChatRoomGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+	
 		msg_text = new JTextField();
 		msg_text.setBounds(6, 515, 481, 42);
-		contentPane.add(msg_text);
+		//contentPane.add(msg_text);
 		msg_text.setColumns(10);
 		
-		JButton msg_send = new JButton("Envoyer");
+		msg_send = new JButton("Envoyer");
 		msg_send.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boutonEnvoyer = true;
 			}
 		});
 		msg_send.setBounds(487, 519, 107, 36);
-		contentPane.add(msg_send);
+		//contentPane.add(msg_send);
 		
 		lblNewLabel = new JLabel("Chat Room");
 		lblNewLabel.setFont(new Font("Monaco", Font.PLAIN, 25));
 		lblNewLabel.setBounds(36, 6, 400, 42);
 		contentPane.add(lblNewLabel);
-		
+		/*
 		TextArea textArea = new TextArea();
 		textArea.setBackground(new Color(255, 250, 240));
 		textArea.setBounds(232, 71, 358, 438);
 		contentPane.add(textArea);
-		
+		*/
 		cJList = new JList<>();
 		model= new DefaultListModel<>();
 		cJList.setModel(model);
+		
+		mJList = new JList<>();
+		modelMessage= new DefaultListModel<>();
+		mJList.setModel(modelMessage);
+		
        // for(int num=0; num<cList.size(); num++)
         //{
       	  //model.addElement(cList.get(num));//.getContactPseudo());
@@ -88,11 +98,18 @@ public class ChatRoomGUI extends JFrame {
         //{
       	//  System.out.println(cList.get(num).getContactPseudo() );//.getContactPseudo());
         //}
+		contentPane.add(msg_text);
+		contentPane.add(msg_send);
 		
 		JScrollPane sp = new JScrollPane(cJList);
 		sp.setBackground(new Color(255, 250, 240));
 		sp.setBounds(6, 71, 221, 438);
 		contentPane.add(sp);
+		
+		JScrollPane sp2 = new JScrollPane(mJList);
+		sp2.setBackground(new Color(255, 250, 240));
+		sp2.setBounds(232, 71, 358, 438);
+		contentPane.add(sp2);
 
 		/*
 		TextArea textArea_1 = new TextArea();
