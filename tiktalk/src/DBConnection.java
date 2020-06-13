@@ -88,7 +88,7 @@ public class DBConnection {
         java.sql.Timestamp sqlTimeStamp = new java.sql.Timestamp(date.getTime());
         
         
-		ResultSet rs = dbSelect("SELECT * FROM messages WHERE (envoyeurID =\"" + user1ID + "\" and receveurID =\"" + user2ID + "\") or (envoyeurID =\"" + user2ID + "\" and receveurID =\"" + user1ID + "\");");
+		ResultSet rs = dbSelect("SELECT * FROM messages WHERE (envoyeurID =\"" + user1ID + "\" and receveurID =\"" + user2ID + "\") or (envoyeurID =\"" + user2ID + "\" and receveurID =\"" + user1ID + "\") ORDER BY date DESC;");
 		int messageID;
 		int envoyeurID;
 		int receveurID;

@@ -119,10 +119,11 @@ public class ServerThread extends Thread {
 							output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
 						}
 						if(changed == 2) {
+							date = new java.util.Date();
 							sqlTimeStamp = new java.sql.Timestamp(date.getTime());
 							
 							textToSend = (String)input.readObject();
-							output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
+						//	output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
 							
 							mcs.dbc.addMessage(clientUser.getId(), idContact, sqlTimeStamp, textToSend);
 						}
