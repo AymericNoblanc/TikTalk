@@ -13,13 +13,15 @@ int envoyeur;
 int recever;
 java.sql.Timestamp dateSQL;
 String txt;
+String pseudoEnvoyeur;
 
-public Message(int id,int envoyeur, int recever,java.sql.Timestamp dateSQL, String txt) {
+public Message(int id,int envoyeur, int recever,java.sql.Timestamp dateSQL, String txt, String pseudoEnvoyeur) {
 	this.id=id;
 	this.envoyeur=envoyeur;
 	this.recever=recever;
 	this.dateSQL=dateSQL;
 	this.txt=txt;
+	this.pseudoEnvoyeur=pseudoEnvoyeur;
 }
 public void setId(int id) {
 	this.id = id;
@@ -49,6 +51,12 @@ public void setRecever(int recever) {
 
 
 
+public String getPseudoEnvoyeur() {
+	return pseudoEnvoyeur;
+}
+public void setPseudoEnvoyeur(String pseudoEnvoyeur) {
+	this.pseudoEnvoyeur = pseudoEnvoyeur;
+}
 public java.sql.Timestamp getDateSQL() {
 	return dateSQL;
 }
@@ -65,7 +73,7 @@ public void setTxt(String txt) {
 
 @Override
 public String toString() {
-	return String.valueOf(dateSQL) +"- "+ String.valueOf(envoyeur) +" :  " + txt;
+	return String.valueOf(dateSQL) +"- "+ pseudoEnvoyeur +" :  " + txt;
 }
 
 

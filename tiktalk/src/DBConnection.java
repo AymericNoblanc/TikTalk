@@ -94,6 +94,7 @@ public class DBConnection {
 		int receveurID;
 		java.sql.Timestamp dateSQL;
 		String txt;
+		String pseudoEnvoyeur;
 		
 		while(rs.next()) {
 			messageID= rs.getInt("messageID");
@@ -101,7 +102,8 @@ public class DBConnection {
 			receveurID= rs.getInt("receveurID");
 			dateSQL= rs.getTimestamp("date");
 			txt= rs.getString("text");
-			Message mess = new Message(messageID,envoyeurID,receveurID,dateSQL,txt);
+			pseudoEnvoyeur= rs.getString("pseudoEnvoyeur");
+			Message mess = new Message(messageID,envoyeurID,receveurID,dateSQL,txt, pseudoEnvoyeur);
 			mList.addFirst(mess);
 			//System.out.println("message ajouté dans la liste");
 		}
@@ -110,7 +112,7 @@ public class DBConnection {
 	}
 	
 	public void addMessage(int envoyeurID, int receveurID, java.sql.Timestamp sqlTimeStamp,String text) throws SQLException{
-			dbUpdate("INSERT INTO messages (envoyeurID,receveurID,date,text) VALUES (\"" + envoyeurID+ "\", \"" + receveurID + "\",\"" + sqlTimeStamp +  "\", \"" + text + "\");");
+			dbUpdate("INSERT INTO messages (envoyeurID,receveurID,date,text,pseudoEnvoyeur) VALUES (\"" + envoyeurID+ "\", \"" + receveurID + "\",\"" + sqlTimeStamp +  "\", \"" + text +  "\", \"" + fetchPseudo(envoyeurID) + "\");");
 	}
 	
 	
