@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -22,6 +24,7 @@ public class ChatRoomGUI extends JFrame {
 
 	public JPanel contentPane;
 	public JTextField msg_text;
+	public JTextField addContactField;
 	public JLabel lblNewLabel;
 	public LinkedList<Contact> cList;
 	public JList<Contact> cJList;
@@ -30,6 +33,8 @@ public class ChatRoomGUI extends JFrame {
 	public DefaultListModel<Message> modelMessage;
 	public int indexSelected;
 	public JButton msg_send;
+	private JButton addContactButton;
+	public Boolean addContactButtonValue;
 	public boolean boutonEnvoyer;
 	/*Lance l'application
 	public static void main(String[] args) {
@@ -50,13 +55,13 @@ public class ChatRoomGUI extends JFrame {
 		//this.cList = cList;
 		setBackground(new Color(0, 0, 139));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(400, 100, 600, 600);
+		setBounds(400, 100, 600, 650);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-	
+		addContactButtonValue = false;
 		msg_text = new JTextField();
 		msg_text.setBounds(6, 515, 481, 42);
 		//contentPane.add(msg_text);
@@ -111,6 +116,33 @@ public class ChatRoomGUI extends JFrame {
 		sp2.setBounds(232, 71, 358, 438);
 		contentPane.add(sp2);
 
+		
+		addContactField = new JTextField();
+		addContactField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		addContactField.setBounds(6, 575, 150, 25);
+		addContactField.setColumns(10);
+		addContactField.setText("Ajouter un contact");
+		addContactField.addFocusListener(new FocusListener() {
+		    public void focusGained(FocusEvent e) {
+		    	addContactField.setText("");
+		    	addContactField.setBackground(Color.WHITE);
+		    }
+
+		    public void focusLost(FocusEvent e) {
+		        // nothing
+		    }
+		});
+		contentPane.add(addContactField);
+		
+		addContactButton = new JButton("Ajouter");
+		addContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addContactButtonValue = true;
+				addContactField.setBackground(Color.RED);
+			}
+		});
+		addContactButton.setBounds(170, 570, 100, 30);
+		contentPane.add(addContactButton);
 		/*
 		TextArea textArea_1 = new TextArea();
 		textArea_1.setBackground(new Color(255, 250, 240));
