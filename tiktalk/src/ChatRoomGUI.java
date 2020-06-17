@@ -54,7 +54,7 @@ public class ChatRoomGUI extends JFrame {
 	public ChatRoomGUI() {
 		//this.cList = cList;
 		setBackground(new Color(0, 0, 139));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(400, 100, 600, 650);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
