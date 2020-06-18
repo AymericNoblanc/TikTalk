@@ -108,12 +108,12 @@ public class ServerThread extends Thread {
 
 				output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
 				int idContact;
-				int changed;
+				int changed = -1;
 				String pseudoContact;
 				idContact = 0;
 
 
-				while(true) {
+				while(changed != 5) {
 					changed = (int)input.readObject();
 					if(changed == 1) {
 						idContact = (int)input.readObject();
@@ -147,24 +147,15 @@ public class ServerThread extends Thread {
 					else if(changed == 4) {
 						output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
 					}
+					
 				}
 
 
-				/*
-					//////////////////////////////////////////
-					String textToSend = (String)input.readObject();
-
-					mcs.dbc.addMessage(clientUser.getId(), idContact, sqlTimeStamp, textToSend);
-
-					//output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
-				 */
-
-				//Message message = new Message(1,1,1,dates.nowDate(), "john.doe");
-				//output.writeObject(message);		//serialize and write the Student object to the stream
 
 			} catch (IOException ex) {
 				System.out.println("Server exception: " + ex.getMessage());
 				ex.printStackTrace();
+				
 
 			} catch (ClassNotFoundException ex) {
 				System.out.println("Server exception: " + ex.getMessage());

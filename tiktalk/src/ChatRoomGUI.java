@@ -36,6 +36,8 @@ public class ChatRoomGUI extends JFrame {
 	private JButton addContactButton;
 	public Boolean addContactButtonValue;
 	public boolean boutonEnvoyer;
+	public boolean exitButtonValue;
+	public boolean DisconnectButtonValue;
 	/*Lance l'application
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -66,6 +68,7 @@ public class ChatRoomGUI extends JFrame {
 		msg_text.setBounds(6, 515, 481, 42);
 		//contentPane.add(msg_text);
 		msg_text.setColumns(10);
+		
 		
 		msg_send = new JButton("Envoyer");
 		msg_send.addActionListener(new ActionListener() {
@@ -149,6 +152,7 @@ public class ChatRoomGUI extends JFrame {
 		textArea_1.setBounds(6, 71, 221, 438);
 		contentPane.add(textArea_1);
 	*/
+		
 	}
 
 }

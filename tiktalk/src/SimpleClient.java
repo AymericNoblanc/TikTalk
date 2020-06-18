@@ -1,8 +1,11 @@
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*; 
 import java.net.*;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
 
 import java.util.LinkedList;
 import java.time.*;
@@ -22,7 +25,7 @@ public class SimpleClient {
 	private LocalDateTime now;
 	private Period period;
 	private long seconds;
-
+	private boolean exitButtonValue;
 
 	public void connect(String ip)
 	{
@@ -61,13 +64,6 @@ public class SimpleClient {
 
 			loginGUI.setVisible(true);
 
-			//System.out.println("Tapez 1 pour créer un compte ou tapez 2 pour vous connecter");
-			//choix1User = scan.nextInt();
-			//while(choix1User != 1 && choix1User != 2) {
-			//    System.out.println("Tapez 1 pour créer un compte ou tapez 2 pour vous connecter");
-			//    choix1User = scan.nextInt();
-			//}
-			//Envoi au serveur l'info qu'on veut se connecter ou creer un compte
 			while(loginGUI.loginButton == false && loginGUI.creerButton == false) {
 				System.out.println("attente 1");
 			}
@@ -79,6 +75,8 @@ public class SimpleClient {
 				loginGUI.dispose();
 				inscriGUI = new InscriptionGUI();
 				inscriGUI.setVisible(true);
+				
+				
 				output.writeObject(1);
 				String reponseCreation ="NON";
 
@@ -93,8 +91,6 @@ public class SimpleClient {
 
 				//System.out.println("Entrez un mot de passe ");
 				String textToSend2 = inscriGUI.champMDP;
-				//System.out.println("text sent to the server: " + textToSend2);
-				//output.writeObject(textToSend2);		//serialize and write the String to the stream
 
 				while(!reponseCreation.equals("utilisateurCree")) {
 
@@ -125,8 +121,6 @@ public class SimpleClient {
 
 				}
 				inscriGUI.dispose();
-				//monUser = (User) input.readObject();
-				//System.out.println("Received user id: " + monUser.getId() + " and user pseudo:" + monUser.getPseudo() + " from server");
 
 
 
@@ -180,7 +174,15 @@ public class SimpleClient {
 			chatGUI = new ChatRoomGUI();
 			chatGUI.lblNewLabel.setText("Chatroom de " + monUser.getPseudo());
 			chatGUI.cList = cList;
-		
+			chatGUI.addWindowListener(new WindowAdapter() {
+			    public void windowClosing(WindowEvent e) {
+			         int Answer = JOptionPane.showConfirmDialog(chatGUI, "You want to quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			         if (Answer == JOptionPane.YES_OPTION) {
+			        	 exitButtonValue = true;
+			        	 chatGUI.dispose();
+			             }
+			    }
+			});
 			chatGUI.setVisible(true);
 
 			System.out.println("Voici la liste de vos contacts");
@@ -197,7 +199,7 @@ public class SimpleClient {
 			idSelected = -1;
 			now = LocalDateTime.now();
 			seconds = now.atZone(ZoneId.systemDefault()).toEpochSecond();
-			while(true) {
+			while(!exitButtonValue) {
 
 				if(chatGUI.addContactButtonValue == true) {
 					output.writeObject(3);
@@ -213,9 +215,13 @@ public class SimpleClient {
 						chatGUI.addContactField.setBackground(Color.RED);
 					}
 				}
+				
+				
+		
+				
+				
 				if(chatGUI.cJList.getSelectedIndex() != -1) {
-					//chatGUI.contentPane.add(chatGUI.msg_text);
-					//chatGUI.contentPane.add(chatGUI.msg_send);
+
 					if(idSelected != chatGUI.cJList.getSelectedValue().getContactID()) {
 						output.writeObject(1);
 						chatGUI.modelMessage.clear();
@@ -300,28 +306,7 @@ public class SimpleClient {
 				}
 
 			}
-
-
-
-
-
-			/*
-            System.out.println("Vous allez envoyer un message indiquez l'id de la personne a contacter:");
-            int idContact = scan.nextInt();
-            output.writeObject(idContact);
-            System.out.println("Voici l'historique de vos messages avec cette personne:");
-
-
-
-            System.out.println("Entrez le texte du message à envoyer:");
-            scan.nextLine();
-            String textToSend = scan.nextLine();
-            output.writeObject(textToSend);
-			 */
-
-
-
-
+			output.writeObject(5);
 
 
 
