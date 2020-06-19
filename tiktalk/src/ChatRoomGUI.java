@@ -37,7 +37,7 @@ public class ChatRoomGUI extends JFrame {
 	public Boolean addContactButtonValue;
 	public boolean boutonEnvoyer;
 	public boolean exitButtonValue;
-	public boolean DisconnectButtonValue;
+	public boolean disconnectButtonValue;
 	/*Lance l'application
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -64,6 +64,7 @@ public class ChatRoomGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		addContactButtonValue = false;
+		disconnectButtonValue = false;
 		msg_text = new JTextField();
 		msg_text.setBounds(6, 515, 481, 42);
 		//contentPane.add(msg_text);
@@ -146,6 +147,19 @@ public class ChatRoomGUI extends JFrame {
 		});
 		addContactButton.setBounds(170, 570, 100, 30);
 		contentPane.add(addContactButton);
+		
+		
+		JButton deconnectionButton = new JButton("déconnection");
+		deconnectionButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				disconnectButtonValue = true;
+				dispose();
+			}
+		});
+		deconnectionButton.setBounds(400, 20, 130, 30);
+		deconnectionButton.setBackground(Color.RED);
+		contentPane.add(deconnectionButton);
+		
 		/*
 		TextArea textArea_1 = new TextArea();
 		textArea_1.setBackground(new Color(255, 250, 240));

@@ -32,6 +32,7 @@ public class LoginGUI extends JFrame {
 	public String champMDP;
 	boolean loginButton = false;
 	boolean creerButton = false;
+	public boolean closeButtonValue = false;
 	
 	/* Lance l'application 
 	public static void main(String[] args) {
@@ -105,6 +106,7 @@ public class LoginGUI extends JFrame {
 		btnCrerUnCompte.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				closeButtonValue = true;
 				dispose(); //ferme la page si on clique sur close
 			}
 		});

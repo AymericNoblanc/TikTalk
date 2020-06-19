@@ -80,7 +80,7 @@ public class ServerThread extends Thread {
 
 
 
-				else{
+				else if (user1Choice==2){
 					System.out.println("L'utilisateur souhaite se connecter à un compte existant");
 
 					String text = (String)input.readObject();  //read the object received through the stream and deserialize it
@@ -106,6 +106,7 @@ public class ServerThread extends Thread {
 					output.writeObject(clientUser);
 				}
 
+				if(user1Choice == 1 || user1Choice == 2) {
 				output.writeObject(mcs.dbc.getContactList(clientUser.getId()));
 				int idContact;
 				int changed = -1;
@@ -150,7 +151,7 @@ public class ServerThread extends Thread {
 					
 				}
 
-
+			}
 
 			} catch (IOException ex) {
 				System.out.println("Server exception: " + ex.getMessage());

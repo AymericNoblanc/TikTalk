@@ -27,7 +27,7 @@ public class SimpleClient {
 	private long seconds;
 	private boolean exitButtonValue;
 
-	public void connect(String ip)
+	public int connect(String ip)
 	{
 		int port = 1000;
 		int portAttribue;
@@ -64,10 +64,9 @@ public class SimpleClient {
 
 			loginGUI.setVisible(true);
 
-			while(loginGUI.loginButton == false && loginGUI.creerButton == false) {
+			while(!loginGUI.loginButton && !loginGUI.creerButton && !loginGUI.closeButtonValue) {
 				System.out.println("attente 1");
 			}
-			System.out.println("kebab ");
 
 
 			if(loginGUI.creerButton == true) {
@@ -167,6 +166,9 @@ public class SimpleClient {
 
 
 				
+			}else if(loginGUI.closeButtonValue == true) {
+				output.writeObject(3);
+				return 0;
 			}
 			monUser = (User) input.readObject();
 			
@@ -199,7 +201,7 @@ public class SimpleClient {
 			idSelected = -1;
 			now = LocalDateTime.now();
 			seconds = now.atZone(ZoneId.systemDefault()).toEpochSecond();
-			while(!exitButtonValue) {
+			while(!exitButtonValue && !chatGUI.disconnectButtonValue) {
 
 				if(chatGUI.addContactButtonValue == true) {
 					output.writeObject(3);
@@ -330,6 +332,11 @@ public class SimpleClient {
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
+		}
+		if(exitButtonValue) {
+			return 0;
+		}else {
+			return 1;
 		}
 	}
 
