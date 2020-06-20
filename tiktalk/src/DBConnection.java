@@ -112,7 +112,19 @@ public class DBConnection {
 	}
 	
 	public void addMessage(int envoyeurID, int receveurID, java.sql.Timestamp sqlTimeStamp,String text) throws SQLException{
-			dbUpdate("INSERT INTO messages (envoyeurID,receveurID,date,text,pseudoEnvoyeur) VALUES (\"" + envoyeurID+ "\", \"" + receveurID + "\",\"" + sqlTimeStamp +  "\", \"" + text +  "\", \"" + fetchPseudo(envoyeurID) + "\");");
+			
+		if(fetchPseudo(receveurID).startsWith("group")) {
+			LinkedList<Contact> cList = new LinkedList<Contact>();
+			cList = getContactList(receveurID);
+			for (int num=0; num<cList.size(); num++)
+		    {
+				dbUpdate("INSERT INTO messages (envoyeurID,receveurID,date,text,pseudoEnvoyeur) VALUES (\"" + receveurID+ "\", \"" + cList.get(num).getContactID() + "\",\"" + sqlTimeStamp +  "\", \"" + text +  "\", \"" + fetchPseudo(envoyeurID) + "\");");
+		    }
+		}
+		else {
+		dbUpdate("INSERT INTO messages (envoyeurID,receveurID,date,text,pseudoEnvoyeur) VALUES (\"" + envoyeurID+ "\", \"" + receveurID + "\",\"" + sqlTimeStamp +  "\", \"" + text +  "\", \"" + fetchPseudo(envoyeurID) + "\");");
+		}
+	
 	}
 	
 	

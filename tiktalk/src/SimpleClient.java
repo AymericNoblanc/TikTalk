@@ -226,13 +226,13 @@ public class SimpleClient {
 
 					if(idSelected != chatGUI.cJList.getSelectedValue().getContactID()) {
 						output.writeObject(1);
-						chatGUI.modelMessage.clear();
+						
 						idSelected = chatGUI.cJList.getSelectedValue().getContactID();
 						System.out.println("id selected:" + idSelected);
 						output.writeObject(idSelected);
 						mList = (LinkedList<Message>)input.readObject();
 
-
+						chatGUI.modelMessage.clear();
 						for(int num=0; num<mList.size(); num++)
 						{
 							//	  System.out.println(mList.get(num).getContactPseudo() );//.getContactPseudo());
@@ -258,7 +258,7 @@ public class SimpleClient {
 
 
 
-				if(LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond() - seconds > 1) {
+				if(LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond() - seconds > 0) {
 					System.out.println("time = " + seconds);
 
 					if(chatGUI.cJList.getSelectedIndex() != -1) {
