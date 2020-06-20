@@ -8,21 +8,24 @@ import java.time.*;
 import java.util.*;
 public class DBConnection {
 
-	Connection conn;
+	Connection conn = null;
 
 	public DBConnection() {
-	try {
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tiktalk?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow", "javaAccess", "java" );
-
-		System.out.println("Connection établie avec la base de données");
-	}
-	catch(Exception exc){
-		exc.printStackTrace();
-		System.out.println("Erreur de connection avec la base de données");
-	}
+	conn = getConnection();
 	}
 	
 	public Connection getConnection(){
+		if(conn == null) {
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tiktalk?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow", "javaAccess", "java" );
+
+			System.out.println("Connection établie avec la base de données");
+		}
+		catch(Exception exc){
+			exc.printStackTrace();
+			System.out.println("Erreur de connection avec la base de données");
+		}
+		}
 		return conn;
 	}
 	
