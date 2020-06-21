@@ -1,3 +1,4 @@
+package controller;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -6,6 +7,13 @@ import java.net.*;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+
+import model.Contact;
+import model.Message;
+import model.User;
+import view.ChatRoomGUI;
+import view.InscriptionGUI;
+import view.LoginGUI;
 
 import java.util.LinkedList;
 import java.time.*;

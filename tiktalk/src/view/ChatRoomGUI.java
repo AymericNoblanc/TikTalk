@@ -1,3 +1,4 @@
+package view;
 //package fenetre;
 
 import java.awt.BorderLayout;
@@ -6,6 +7,10 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Contact;
+import model.Message;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -52,7 +57,7 @@ public class ChatRoomGUI extends JFrame {
 		});
 	}*/
 
-	/* Création de la fenêtre */
+	/* Crï¿½ation de la fenï¿½tre */
 	public ChatRoomGUI() {
 		//this.cList = cList;
 		setBackground(new Color(0, 0, 139));
@@ -149,7 +154,7 @@ public class ChatRoomGUI extends JFrame {
 		contentPane.add(addContactButton);
 		
 		
-		JButton deconnectionButton = new JButton("déconnection");
+		JButton deconnectionButton = new JButton("dï¿½connection");
 		deconnectionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				disconnectButtonValue = true;

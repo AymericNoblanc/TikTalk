@@ -1,9 +1,15 @@
+package controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+
+import model.Contact;
+import model.Message;
+import model.User;
+
 import java.time.*;
 import java.util.*;
 public class DBConnection {
@@ -19,11 +25,11 @@ public class DBConnection {
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tiktalk?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow", "javaAccess", "java" );
 
-			System.out.println("Connection établie avec la base de données");
+			System.out.println("Connection ï¿½tablie avec la base de donnï¿½es");
 		}
 		catch(Exception exc){
 			exc.printStackTrace();
-			System.out.println("Erreur de connection avec la base de données");
+			System.out.println("Erreur de connection avec la base de donnï¿½es");
 		}
 		}
 		return conn;
@@ -108,7 +114,7 @@ public class DBConnection {
 			pseudoEnvoyeur= rs.getString("pseudoEnvoyeur");
 			Message mess = new Message(messageID,envoyeurID,receveurID,dateSQL,txt, pseudoEnvoyeur);
 			mList.addFirst(mess);
-			//System.out.println("message ajouté dans la liste");
+			//System.out.println("message ajoutï¿½ dans la liste");
 		}
 		
 		return mList;
@@ -143,7 +149,7 @@ public class DBConnection {
 		
 		Contact contact = new Contact(contactID,contactPseudo);
 		cList.add(contact);
-		//System.out.println("contacts trouvés:" + contact.getContactID() + contact.getContactPseudo());
+		//System.out.println("contacts trouvï¿½s:" + contact.getContactID() + contact.getContactPseudo());
 	}
     for(int num=0; num<cList.size(); num++)
     {

@@ -1,8 +1,13 @@
+package controller;
 
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.UUID;
+
+import model.Dates;
+import model.User;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -53,7 +58,7 @@ public class ServerThread extends Thread {
 
 				int user1Choice= (int)input.readObject();
 				if(user1Choice==1) {
-					System.out.println("L'utilisateur souhaite créer un compte");
+					System.out.println("L'utilisateur souhaite crï¿½er un compte");
 
 
 					String text = (String)input.readObject();  
@@ -81,7 +86,7 @@ public class ServerThread extends Thread {
 
 
 				else if (user1Choice==2){
-					System.out.println("L'utilisateur souhaite se connecter à un compte existant");
+					System.out.println("L'utilisateur souhaite se connecter ï¿½ un compte existant");
 
 					String text = (String)input.readObject();  //read the object received through the stream and deserialize it
 					System.out.println("server received a text:" + text);
@@ -91,7 +96,7 @@ public class ServerThread extends Thread {
 
 					while(connectionAccepted == false) {
 
-						output.writeObject("Connection refusée");
+						output.writeObject("Connection refusï¿½e");
 
 						text = (String)input.readObject();
 						System.out.println("server received a text:" + text);
@@ -139,7 +144,7 @@ public class ServerThread extends Thread {
 							textToSend = "L'urilisateur : " +clientUser.getPseudo() + " souhaite vous contacter.";
 							//	output.writeObject(mcs.dbc.fetchMessage(clientUser.getId(), idContact));
 							mcs.dbc.addMessage(clientUser.getId(), mcs.dbc.fetchUser(pseudoContact).getId(), sqlTimeStamp, textToSend);
-							output.writeObject(true); // on envoi réussite a l'utilisateur
+							output.writeObject(true); // on envoi rï¿½ussite a l'utilisateur
 						}else {
 							output.writeObject(false);
 						}

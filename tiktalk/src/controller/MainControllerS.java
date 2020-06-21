@@ -1,3 +1,4 @@
+package controller;
 import java.io.*;
 import java.net.*;
 import java.sql.*;
@@ -19,7 +20,7 @@ public class MainControllerS {
 	
 	public boolean loginAttempt(DBConnection dbc, String userPseudo, String userPassword) throws SQLException {
 		if(dbc.verifUserExists(userPseudo) == true) {
-			System.out.println("pseudo trouvé dans la bd");
+			System.out.println("pseudo trouvï¿½ dans la bd");
 			if(dbc.verifUserLogin(userPseudo,userPassword)) {
 				System.out.println("informations de connection correctes");
 				return true;
@@ -38,14 +39,14 @@ public class MainControllerS {
 		if(dbc.verifUserExists(userPseudo) == false) {
 			dbc.addUserToDB(userPseudo,userPassword,userIP);
 			if(dbc.verifUserExists(userPseudo) == true) {
-				System.out.println("Utilisateur créé dans la base de donnée");
+				System.out.println("Utilisateur crï¿½ï¿½ dans la base de donnï¿½e");
 				return true;
 			}else {
-				System.out.println("Erreur d'ajout dans la base de donnée");
+				System.out.println("Erreur d'ajout dans la base de donnï¿½e");
 				return false;
 			}
 		}else {
-			System.out.println("L'utilisateur éxiste déjà");
+			System.out.println("L'utilisateur ï¿½xiste dï¿½jï¿½");
 			return false;
 		}
 	}

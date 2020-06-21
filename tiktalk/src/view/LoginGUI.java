@@ -1,3 +1,4 @@
+package view;
 
 //package ia;
 
@@ -30,8 +31,8 @@ public class LoginGUI extends JFrame {
 	private JButton Button_Inscription;
 	public String champPseudo;
 	public String champMDP;
-	boolean loginButton = false;
-	boolean creerButton = false;
+	public boolean loginButton = false;
+	public boolean creerButton = false;
 	public boolean closeButtonValue = false;
 	
 	/* Lance l'application 
@@ -48,7 +49,7 @@ public class LoginGUI extends JFrame {
 		});
 	}*/
 
-	/* Création de la fenêtre */
+	/* Crï¿½ation de la fenï¿½tre */
 	
 	public LoginGUI() {
 	
@@ -87,7 +88,7 @@ public class LoginGUI extends JFrame {
 		btnNewButton.setBounds(174, 247, 117, 29);
 		contentPane.add(btnNewButton);
 		
-		Button_Inscription = new JButton("Créer un compte");
+		Button_Inscription = new JButton("Crï¿½er un compte");
 		Button_Inscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				creerButton = true;

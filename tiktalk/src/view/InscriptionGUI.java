@@ -1,3 +1,4 @@
+package view;
 
 
 //package ia;
@@ -39,7 +40,7 @@ public class InscriptionGUI extends JFrame {
 	private JButton btnCrerUnCompte;
 	public String champPseudo;
 	public String champMDP;
-	boolean validerButton = false;
+	public boolean validerButton = false;
 
 	/*Lance l'application
 	public static void main(String[] args) {
@@ -55,7 +56,7 @@ public class InscriptionGUI extends JFrame {
 		});
 	}*/
 
-	/* Création de la fenêtre */
+	/* Crï¿½ation de la fenï¿½tre */
 	
 	public InscriptionGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
